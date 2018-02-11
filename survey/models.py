@@ -20,10 +20,10 @@ class Question(models.Model):
     option_type = models.ForeignKey(OptionType)
     form_id = models.ForeignKey(FormId, related_name = "form_questions")
     def __str__(self):
-        return str(question_text) + str(option_type)
+        return str(self.question_text) + " --> " + str(self.option_type)
 
 class Option(models.Model):
     option_text = models.CharField(max_length=255, unique=True)
     question_id = models.ForeignKey(Question)
     def __str__(self):
-        return str(option_text)
+        return str(self.option_text)
