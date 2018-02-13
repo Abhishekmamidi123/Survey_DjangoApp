@@ -4,4 +4,62 @@
 
 {% block content %}
 <h1>Create Survey</h1>
+<!DOCTYPE html>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button ng-click="add()">Add</button>
+        <div ng-repeat="i in items">
+            <button ng-click="remove_ques($index)">Remove Question</button>
+            Question:<input type="text" ng-model="i.data"><br><br>
+            Select the type of options for this question:
+            Radio Buttons: <input type="radio" ng-model="i.radio"><br>
+            Checkbox: <input type="radio" ng-model="i.checkbox"><br>
+            Dropdown: <input type="radio" ng-model="i.dropdown"><br>
+            Two text areas:<input type="radio" ng-model="i.two_text_areas"><br>
+            <button ng-click=add_opt($index)>Add option</button>
+            <div ng-repeat="j in i.options">
+                <br>
+                <input type="text" ng-model="j.option">
+                <button ng-click="remove_option($parent.$index,$index)">Remove option</button>
+            </div>
+            <br>
+        </div>
+        <br><br>
+        <button ng-click="submit()">Submit</button>
+    </div>
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.items = []
+        $scope.add = function(){
+            $scope.items.push({
+                data:"",
+                radio: false,
+                checkbox: false,
+                dropdown: false,
+                two_text_areas: false,
+                options:[]
+            });
+        }
+        $scope.add_opt = function(index)
+        {
+            $scope.items[index].options.push({
+                option:""
+            });
+        }
+        $scope.remove_ques = function(index)
+        {
+            $scope.items.splice(index,1)
+        }
+        $scope.remove_option = function(parent,child)
+        {
+            $scope.items[parent].options.splice(child,1)
+        }
+        $scope.submit = function()
+        {
+            console.log($scope.items)
+        }
+    });
+    </script>
+</body>
 {% endblock %}
