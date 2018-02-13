@@ -9,7 +9,7 @@ def createSurvey(request):
 
 def takeSurvey(request):
     form = []
-    pk = 2
+    pk = 1
     questions_list = Question.objects.filter(form_id = pk)
     options_list = Option.objects.all()
     for question in questions_list:

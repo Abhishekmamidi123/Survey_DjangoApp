@@ -3,29 +3,84 @@
 {% block title %} Create Survey {% endblock %}
 
 {% block content %}
-<h1>Create Survey</h1>
-<!DOCTYPE html>
 <body>
-    <div ng-app="myApp" ng-controller="myCtrl">
-        <button ng-click="add()">Add</button>
-        <div ng-repeat="i in items">
-            <button ng-click="remove_ques($index)">Remove Question</button>
-            Question:<input type="text" ng-model="i.data"><br><br>
-            Select the type of options for this question:
-            Radio Buttons: <input type="radio" ng-model="i.radio"><br>
-            Checkbox: <input type="radio" ng-model="i.checkbox"><br>
-            Dropdown: <input type="radio" ng-model="i.dropdown"><br>
-            Two text areas:<input type="radio" ng-model="i.two_text_areas"><br>
-            <button ng-click=add_opt($index)>Add option</button>
-            <div ng-repeat="j in i.options">
-                <br>
-                <input type="text" ng-model="j.option">
-                <button ng-click="remove_option($parent.$index,$index)">Remove option</button>
+    <div class="container-fluid" id="wrapper">
+            <div class="col-lg-8 col-lg-offset-2" id="content">
+                <h2>
+                    <font size="6">Create a Survey<i class="fas fa-pencil-alt"></i></font>
+                </h2><br>
+                <div ng-app="myApp" ng-controller="myCtrl">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Name of the Survey" aria-describedby="sizing-addon1">
+                        <span class="input-group-btn">
+                            <button ng-click="add()" type="submit" class="btn btn-success" id="add-btn"> Add a Question <i class="fas fa-check-circle"></i></button>
+                        </span>
+                    </div><br>
+                    <!-- <div style="background:#5f27cd"> -->
+                    <div>
+                        <center><font size="5" style="color: black">You need to select the type of option for the question </font></center>
+                    </div><br>
+                    <div ng-repeat="i in items">
+                        <div class="question">
+                            <div class="input-group">
+                                <input type="text" ng-model="i.data" class="form-control" placeholder="Write your question" aria-describedby="sizing-addon1">
+                                <span class="input-group-btn">
+                                    <button ng-click="remove_ques($index)" type="submit" class="btn btn-danger" id="add-btn" style="background:#cc0000"> <i class="fas fa-trash-alt"></i></button>
+                                </span>
+                            </div><br>
+
+                            <div class="radios">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="form-group radio-pink-gap ">
+
+                                            <div class="btn-group" data-toggle="buttons" style="background:#54a0ff">
+                                                <label class="btn btn-primary" style="background:white color:black">
+                                                    <input type="radio" name="options" id="option1" autocomplete="off" > Radio Buttons
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off"> Check box
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option3" autocomplete="off"> Drop down
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option4" autocomplete="off"> Two text areas
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button ng-click="add_opt($index)" type="submit" class="btn btn-danger" id="add-btn"> Add Option <i class="fas fa-check-circle"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option">
+                                <div ng-repeat="j in i.options">
+                                    <div class="input-group">
+                                        <input type="text" ng-model="j.option" class="form-control" placeholder="Write your Option" aria-describedby="sizing-addon1">
+                                        <span class="input-group-btn">
+                                            <button ng-click="remove_option($parent.$index,$index)" type="submit" class="btn btn-danger" id="add-btn" style="background:#cc0000"> <i class="fas fa-trash-alt"></i></button>
+                                        </span>
+                                    </div>
+                                    <br>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br><br>
+                    <center>
+                        <button ng-click="submit()" class="btn" style="color:black">Submit</button>
+                    </center>
+                </div>
             </div>
-            <br>
-        </div>
-        <br><br>
-        <button ng-click="submit()">Submit</button>
     </div>
     <script>
     var app = angular.module('myApp', []);
@@ -63,3 +118,30 @@
     </script>
 </body>
 {% endblock %}
+
+<!-- <input ng-model="i.radio" name="group103" type="radio" class="with-gap" id="radio109">
+<label for="radio109">Radio Buttons</label>
+
+<input ng-model="i.checkbox" name="group103" type="radio" class="with-gap" id="radio110" checked>
+<label for="radio110">Check box</label>
+
+<input ng-model="i.dropdown" name="group103" type="radio" class="with-gap" id="radio111">
+<label for="radio111">Drop down</label>
+
+<input ng-model="i.two_text_areas" name="group103" type="radio" class="with-gap" id="radio112">
+<label for="radio111">Two text areas</label> -->
+
+<!-- <div class="btn-group" data-toggle="buttons" style="background:#54a0ff">
+    <label class="btn btn-primary">
+        <input type="radio" name="options" id="option1" autocomplete="off" > Radio Buttons
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Check box
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Drop down
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" name="options" id="option4" autocomplete="off"> Two text areas
+    </label>
+</div> -->
