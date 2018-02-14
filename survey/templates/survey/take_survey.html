@@ -4,8 +4,9 @@
 
 {% block content %}
 <h1>Take survey</h1>
+{{ data }}
 <br>
-<form action="" method="post">
+<form action="" method="POST">
 {% csrf_token %}
     {% for question in form %}
         {{question.question_text}}
@@ -13,7 +14,7 @@
         {% if question.option_type == 'radio_button' %}
             <div class="form-group">
             {% for option in question.options %}
-                <input id="choice{{ forloop.counter }}" type="radio" name="selected_option" value="{{option}}">
+                <input id="choice{{ forloop.counter }}" type="radio" name="selected_option_r{{ forloop.parentloop.counter}}" value="{{option}}">
                 <label for="choice{{ forloop.counter }}">{{option}}</label>
                 <br>
             {% endfor %}
@@ -21,7 +22,7 @@
 
         {% elif question.option_type == 'drop_down' %}
             <div class="form-group">
-            <select class="" name="selected_option">
+            <select class="" name="selected_option_dd{{ forloop.counter }}">
                 {% for option in question.options %}
                     <option value="{{option}}">{{option}}</option>
                 </div>
@@ -32,20 +33,22 @@
         {% elif question.option_type == 'multi_select' %}
             <div class="form-group">
             {% for option in question.options %}
-                <input id="choice{{ forloop.counter }}" type="checkbox" name="selected_option" value="{{option}}">
+                <input id="choice{{ forloop.counter }}" type="checkbox" name="selected_option_ms{{ forloop.parentloop.counter }}" value="{{option}}">
                 <label for="choice{{ forloop.counter }}">{{option}}</label>
                 <br>
             {% endfor %}
             </div>
 
         {% elif question.option_type == 'two_text_boxes' %}
-            {% for option in question.options %}
-                <textarea name="text_area_1" rows="4" cols="40">{{option}}</textarea>
+                <textarea name="text_area_1{{forloop.counter}}" rows="4" cols="40">{{option}}</textarea> <br><br>
+                <textarea name="text_area_2{{forloop.counter}}" rows="4" cols="40">{{option}}</textarea>
                 <br><br>
-            {% endfor %}
         <br>
         {% endif %}
     {% endfor %}
 <input type="submit" value="Submit">
 </form>
 {% endblock %}
+
+{% for option in question.options %}
+{% endfor %}

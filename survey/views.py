@@ -8,7 +8,7 @@ def createSurvey(request):
     return render(request, 'survey/create_survey.html', None)
 
 def takeSurvey(request):
-    form = []
+    dummy_form = []
     pk = 1
     questions_list = Question.objects.filter(form_id = pk)
     options_list = Option.objects.all()
@@ -21,6 +21,53 @@ def takeSurvey(request):
         for option in options:
             list_of_options.append(option.option_text)
         Question_list['options'] = list_of_options
-        form.append(Question_list)
-    context={'form':form}
+        dummy_form.append(Question_list)
+
+    if request.method == 'POST':
+        data = []
+        count=1
+        print dummy_form[0]['option_type']
+        for question in dummy_form:
+            q = questions_list[count-1]
+            options_objects = options_list.filter(question_id = q.pk)
+            if question['option_type'] == 'radio_button':
+                selected_option = request.POST['selected_option_r'+str(count)]
+                data.append(request.POST['selected_option_r'+str(count)])
+                l = options_objects.filter(option_text=selected_option)[0]
+                l.count = l.count + 1
+                l.save()
+
+            elif question['option_type'] == 'drop_down':
+                selected_option = request.POST['selected_option_dd'+str(count)]
+                data.append(request.POST['selected_option_dd'+str(count)])
+                l = options_objects.filter(option_text=selected_option)[0]
+                l.count = l.count + 1
+                l.save()
+
+            elif question['option_type'] == 'multi_select':
+                selected_options = request.POST.getlist('selected_option_ms'+str(count))
+                data.append(request.POST.getlist('selected_option_ms'+str(count)))
+                for selected_option in selected_options:
+                    l = options_objects.filter(option_text=selected_option)[0]
+                    l.count = l.count + 1
+                    l.save()
+
+            elif question['option_type'] == 'two_text_boxes':
+                    data.append(request.POST['text_area_1'+str(count)])
+                    data.append(request.POST['text_area_2'+str(count)])
+                    textArea1 = request.POST['text_area_1'+str(count)]
+                    textArea2 = request.POST['text_area_2'+str(count)]
+                    l = options_objects[0]
+                    l.option_text = textArea1
+                    l.save()
+                    l = options_objects[1]
+                    l.option_text = textArea2
+                    l.save()
+            count+=1
+        context={'data':data}
+
+    else:
+        form = dummy_form
+        data = []
+        context={'form':form, 'data':data}
     return render(request, 'survey/take_survey.html', context)

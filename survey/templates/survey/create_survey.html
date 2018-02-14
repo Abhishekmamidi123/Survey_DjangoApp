@@ -13,7 +13,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Name of the Survey" aria-describedby="sizing-addon1">
                         <span class="input-group-btn">
-                            <button ng-click="add()" type="submit" class="btn btn-success" id="add-btn"> Add a Question <i class="fas fa-check-circle"></i></button>
+                            <button ng-click="add()" type="submit" class="btn btn-success" id="add-btn"> Add a Question <i class="fas fa-plus-circle"></i></button>
                         </span>
                     </div><br>
                     <!-- <div style="background:#5f27cd"> -->
@@ -36,16 +36,16 @@
 
                                             <div class="btn-group" data-toggle="buttons" style="background:#54a0ff">
                                                 <label class="btn btn-primary" style="background:white color:black">
-                                                    <input type="radio" name="options" id="option1" autocomplete="off" > Radio Buttons
+                                                    <input type="radio" ng-model="i.radio" name="options" id="option1" autocomplete="off" > Radio Buttons
                                                 </label>
                                                 <label class="btn btn-primary">
-                                                    <input type="radio" name="options" id="option2" autocomplete="off"> Check box
+                                                    <input type="radio" ng-model="i.checkbox" name="options" id="option2" autocomplete="off"> Check box
                                                 </label>
                                                 <label class="btn btn-primary">
-                                                    <input type="radio" name="options" id="option3" autocomplete="off"> Drop down
+                                                    <input type="radio" ng-model="i.dropdown" name="options" id="option3" autocomplete="off"> Drop down
                                                 </label>
                                                 <label class="btn btn-primary">
-                                                    <input type="radio" name="options" id="option4" autocomplete="off"> Two text areas
+                                                    <input type="radio" ng-model="i.two_text_areas" name="options" id="option4" autocomplete="off"> Two text areas
                                                 </label>
                                             </div>
                                         </div>
@@ -53,7 +53,7 @@
                                     <div class="col-2">
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <button ng-click="add_opt($index)" type="submit" class="btn btn-danger" id="add-btn"> Add Option <i class="fas fa-check-circle"></i></button>
+                                                <button ng-click="add_opt($index)" type="submit" class="btn btn-danger" id="add-btn"> Add Option <i class="fas fa-plus-circle"></i></button>
                                             </span>
                                         </div>
                                     </div>

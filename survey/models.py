@@ -25,5 +25,6 @@ class Question(models.Model):
 class Option(models.Model):
     option_text = models.CharField(max_length=255, unique=True)
     question_id = models.ForeignKey(Question)
+    count = models.IntegerField(default=0)
     def __str__(self):
-        return str(self.option_text)
+        return str(self.option_text) + " " + str(self.count)
