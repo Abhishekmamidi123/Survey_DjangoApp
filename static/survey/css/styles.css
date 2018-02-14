@@ -7,7 +7,10 @@ body {
 	font-size: 16px;
 }
 #content {
-	background: #54a0ff;
+	/*background: #54a0ff;*/
+	border-color: #54a0ff;
+	border-style: solid;
+	border-width: 3px;
 	padding: 50px;
 }
 #content > h2 {
@@ -30,7 +33,7 @@ body {
 	border-color: #5f27cd;
 	border-style: solid;
 	border-width: 0px;
-	border-top-width: 4px;
+	border-top-width: 3px;
     border-bottom-width: 2px;
 	color: white;
 	padding-top: 30px;
@@ -72,16 +75,16 @@ footer {
     border-color: #fff;
 }
 
+.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
+    margin-left: 5px;
+    background-color: #ffa801;
+}
+
 .remove:last-child>.btn, .remove:last-child>.btn-group {
     z-index: 2;
     margin-left: -1px;
     background-color: #ffa801;
     border-color: #fff;
-}
-
-.btn-toolbar>.btn, .btn-toolbar>.btn-group, .btn-toolbar>.input-group {
-    margin-left: 5px;
-    background-color: #ffa801;
 }
 
 .radio-pink [type="radio"]:checked+label:after {
@@ -98,7 +101,18 @@ footer {
     background-color: #e91e63;
 }
 
+.submit-button {
+	color: white;
+	background-color: blue;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 18px;
+}
 
-
-
-
+.dropdown-class {
+	color: black;
+	background-color: white;
+	font-size: 15px;
+}

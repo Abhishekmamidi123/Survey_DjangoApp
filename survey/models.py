@@ -23,7 +23,7 @@ class Question(models.Model):
         return str(self.question_text) + " --> " + str(self.option_type)
 
 class Option(models.Model):
-    option_text = models.CharField(max_length=255, unique=True)
+    option_text = models.CharField(max_length=255)
     question_id = models.ForeignKey(Question)
     count = models.IntegerField(default=0)
     def __str__(self):

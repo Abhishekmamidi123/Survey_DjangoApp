@@ -3,52 +3,90 @@
 {% block title %} Take Survey {% endblock %}
 
 {% block content %}
-<h1>Take survey</h1>
-{{ data }}
-<br>
-<form action="" method="POST">
-{% csrf_token %}
-    {% for question in form %}
-        {{question.question_text}}
-        <br>
-        {% if question.option_type == 'radio_button' %}
-            <div class="form-group">
-            {% for option in question.options %}
-                <input id="choice{{ forloop.counter }}" type="radio" name="selected_option_r{{ forloop.parentloop.counter}}" value="{{option}}">
-                <label for="choice{{ forloop.counter }}">{{option}}</label>
-                <br>
-            {% endfor %}
-            </div>
+<body>
+    <div class="container-fluid" id="wrapper">
+        <div class="col-lg-8 col-lg-offset-2" id="content">
+            <h2>
+                <font size="6">Take Survey<i class="fas fa-pencil-alt"></i></font>
+            </h2><br>
+            <!-- {{ data }} -->
+            {% if boolValue == False %}
+            <br>
+            <form action="" method="POST">
+            {% csrf_token %}
+                {% for question in form %}
+                    <div class="question" style="color:#2e3133">
+                        <font size="6">{{question.question_text}}</font>
+                        <br><br>
+                        {% if question.option_type == 'radio_button' %}
+                            <div class="form-group">
+                            {% for option in question.options %}
+                                <input class = "magic-radio" id="choice{{ forloop.counter }}" type="radio" name="selected_option_r{{ forloop.parentloop.counter}}" value="{{option}}">
+                                <label for="choice{{ forloop.counter }}">{{option}}</label>
+                                <br>
+                            {% endfor %}
+                            </div>
 
-        {% elif question.option_type == 'drop_down' %}
-            <div class="form-group">
-            <select class="" name="selected_option_dd{{ forloop.counter }}">
-                {% for option in question.options %}
-                    <option value="{{option}}">{{option}}</option>
-                </div>
-            {% endfor %}
-            </select>
-            <br><br>
+                        {% elif question.option_type == 'drop_down' %}
+                            <div class="">
+                                <select class="btn btn-primary" name="selected_option_dd{{ forloop.counter }}">
+                                    {% for option in question.options %}
+                                        <option class="dropdown-class " value="{{option}}">{{option}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% for option in question.options %}
+                                    <br>
+                                {% endfor %}
+                                <br><br>
+                            </div>
+                        {% elif question.option_type == 'multi_select' %}
+                            <div class="form-group">
+                            {% for option in question.options %}
+                                <input class = "magic-checkbox" id="choicebox{{ forloop.counter }}" type="checkbox" name="selected_option_ms{{ forloop.parentloop.counter }}" value="{{option}}">
+                                <label for="choicebox{{ forloop.counter }}">{{option}}</label>
+                                <br>
+                            {% endfor %}
+                            </div>
 
-        {% elif question.option_type == 'multi_select' %}
-            <div class="form-group">
-            {% for option in question.options %}
-                <input id="choice{{ forloop.counter }}" type="checkbox" name="selected_option_ms{{ forloop.parentloop.counter }}" value="{{option}}">
-                <label for="choice{{ forloop.counter }}">{{option}}</label>
-                <br>
-            {% endfor %}
-            </div>
-
-        {% elif question.option_type == 'two_text_boxes' %}
-                <textarea name="text_area_1{{forloop.counter}}" rows="4" cols="40">{{option}}</textarea> <br><br>
-                <textarea name="text_area_2{{forloop.counter}}" rows="4" cols="40">{{option}}</textarea>
+                        {% elif question.option_type == 'two_text_boxes' %}
+                            <div class="form-group">
+                                <textarea class="form-control" name="text_area_1{{forloop.counter}}" placeholder="Write here..." rows="6" cols="20">{{option}}</textarea> <br><br>
+                                <textarea class="form-control" name="text_area_2{{forloop.counter}}" placeholder="Write here..." rows="4" cols="40">{{option}}</textarea>
+                                <br><br>
+                            </div>
+                        <br>
+                        {% endif %}
+                    </div>
+                {% endfor %}
                 <br><br>
-        <br>
-        {% endif %}
-    {% endfor %}
-<input type="submit" value="Submit">
-</form>
+                <center>
+                    <button class="btn submit-button" style="color:black background-color:black">Submit</button>
+                </center>
+            <!-- <input type="submit" value="Submit"> -->
+            </form>
+            {% else %}
+            <div>
+                <center>
+                    <button class="btn submit-button" style="color:black background-color:black">Thank you for submitting the form.</button>
+                </center>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
 {% endblock %}
 
-{% for option in question.options %}
-{% endfor %}
+<!-- {% for option in question.options %}
+{% endfor %} -->
+
+<!-- <div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Action
+  </button>
+  <div class="dropdown-menu" name="selected_option_dd{{ forloop.counter }}">
+    {% for option in question.options %}
+    <a class="dropdown-item" value="{{option}}">{{option}}</a>
+    {% endfor %}
+  </div>
+</div>
+<br><br><br> -->
