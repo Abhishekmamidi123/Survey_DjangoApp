@@ -4,6 +4,8 @@
 
 {% block content %}
 <body>
+    <form method="POST">
+        {% csrf_token %}
     <div class="container-fluid" id="wrapper">
             <div class="col-lg-8 col-lg-offset-2" id="content">
                 <h2>
@@ -13,7 +15,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Name of the Survey" aria-describedby="sizing-addon1">
                         <span class="input-group-btn">
-                            <button ng-click="add()" type="submit" class="btn btn-success" id="add-btn"> Add a Question <i class="fas fa-plus-circle"></i></button>
+                            <button ng-click="add()" type="button" class="btn btn-success" id="add-btn"> Add a Question <i class="fas fa-plus-circle"></i></button>
                         </span>
                     </div><br>
                     <!-- <div style="background:#5f27cd"> -->
@@ -53,7 +55,7 @@
                                     <div class="col-2">
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <button ng-click="add_opt($index)" type="submit" class="btn btn-danger" id="add-btn"> Add Option <i class="fas fa-plus-circle"></i></button>
+                                                <button ng-click="add_opt($index)" type="button" class="btn btn-danger" id="add-btn"> Add Option <i class="fas fa-plus-circle"></i></button>
                                             </span>
                                         </div>
                                     </div>
@@ -65,7 +67,7 @@
                                     <div class="input-group">
                                         <input type="text" ng-model="j.option" class="form-control" placeholder="Write your Option" aria-describedby="sizing-addon1">
                                         <span class="input-group-btn">
-                                            <button ng-click="remove_option($parent.$index,$index)" type="submit" class="btn btn-danger" id="add-btn" style="background:#cc0000"> <i class="fas fa-trash-alt"></i></button>
+                                            <button ng-click="remove_option($parent.$index,$index)" type="button" class="btn btn-danger" id="add-btn" style="background:#cc0000"> <i class="fas fa-trash-alt"></i></button>
                                         </span>
                                     </div>
                                     <br>
@@ -77,10 +79,11 @@
                     </div>
                     <br><br>
                     <center>
-                        <button ng-click="submit()" class="btn" style="color:black">Submit</button>
+                        <button ng-click="submit()" type="submit" class="btn submit-button" style="color:white">Submit</button>
                     </center>
                 </div>
             </div>
+    </div>
     </div>
     <script>
     var app = angular.module('myApp', []);
@@ -113,6 +116,28 @@
         $scope.submit = function()
         {
             console.log($scope.items)
+            $.ajax({
+                url: 'http://127.0.0.1:8000/survey/createSurvey/',
+                // url: 'http://127.0.0.1:8000/survey/thankyou/',
+                type: "POST",
+                dataType: "json",
+                data: {'Data': JSON.stringify($scope.items), csrfmiddlewaretoken: '{{ csrf_token }}',}
+            //    statusCode: {
+            //         200: function (your_Response_Data) {
+            //             // YOUR SERVER'S RESPONSE
+            //             // you can act on your server's
+            //             // response if there will be any
+            //             // eg. you can send back information to update UI.
+            //         },
+            //             // ... handle errors if required
+            //         404: function () {
+            //             // what to do on 404 etc.
+            //         }
+            //    },
+            //    complete: function (jqXHR, textStatus) {
+            //         // Things to do after everything is completed
+            //    }
+            });
         }
     });
     </script>

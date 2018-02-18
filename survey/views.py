@@ -3,9 +3,34 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from survey.models import FormId, OptionType, Question, Option
+from django.shortcuts import redirect
+import json
 
 def createSurvey(request):
-    return render(request, 'survey/create_survey.html', None)
+    if request.method == 'POST':
+        print '==========================111111111111============================'
+        print '\n'
+        print '----------------------'
+        print '\n'
+        # print json.loads(request.POST)
+        print '\n'
+        print type(request.POST.get('Data'))
+        print request.POST
+        # print request.POST.get('Data')[0]
+        print '\n'
+        print json.dumps(request.POST)
+        print '\n'
+        print request.body
+        # data = {x: request.POST.get(x) for x in request.POST.keys()}
+        # print '\n'
+        # print data
+        # print '\n'
+        print '----------------------'
+        print '\n'
+        return redirect('/survey/thankyou/')
+        # return render(request, 'survey/thank-you.html', None)
+    else:
+        return render(request, 'survey/create_survey.html', None)
 
 def takeSurvey(request):
     dummy_form = []
@@ -67,9 +92,11 @@ def takeSurvey(request):
             count+=1
         boolValue = True
         context={'data':data, 'boolValue':boolValue}
-
     else:
         form = dummy_form
         data = []
         context={'form':form, 'data':data, 'boolValue':boolValue}
     return render(request, 'survey/take_survey.html', context)
+
+def thankyou(request):
+    return render(request, 'survey/thank-you.html', None)
